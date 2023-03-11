@@ -4,6 +4,8 @@ Miroslav Saric
 miroslavsaric5@gmail.com
 Data Source: ourworldindata.org
 
+Dataset includes a lot NULL values and also mixes locations and continents so we had to filter that.
+
 */
 
 Select Location, date, total_cases, new_cases, total_deaths, population
