@@ -86,3 +86,24 @@ GROUP BY continent
 
 Select *
 From ContinentsHighestDeathCount
+
+-- Population Health-----
+DROP TABLE IF EXISTS #country_health;
+
+WITH cte_countryHealth (location, population, Stringency_Index, Cardiovascular_Death_Rate, Diabetes_Prevalence, Female_Smokers, Male_Smokers, Life_Expectancy)
+AS
+(
+	SELECT location,
+	MAX(population) AS population,
+	MAX(stringency_index) AS Stringency_Index,
+	MAX(cardiovasc_death_rate) AS Cardiovascular_Death_Rate,
+	MAX(diabetes_prevalence) AS Diabetes_Prevalence,
+	MAX(female_smokers) AS Female_Smokers,
+	MAX(male_smokers) AS Male_Smokers,
+	MAX(life_expectancy) AS Life_Expectancy
+	FROM PortfolioProject..Covid19Vaccinations$
+	WHERE continent IS NOT NULL
+	GROUP BY location
+)
+SELECT * INTO #country_health 
+FROM cte_countryHealth
